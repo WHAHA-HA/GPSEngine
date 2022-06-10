@@ -1,0 +1,284 @@
+<div id='map'></div>
+
+<!--<div class="map-menu btn-group" role="group" aria-label="..." data-toggle="buttons">-->
+<!-- <button type="button" class="btn btn-default map-menu-button-a" disabled>Maps</button> -->
+
+<!--<button type="button" class="btn btn-default map-menu-button-b" ng-click="main.loadMap('Plain')" btn-checkbox-->
+<!--ng-model="main.plainBase">{{ 'map.MAP' | translate }}-->
+<!--</button>-->
+<!--<button type="button" class="btn btn-default map-menu-button-b" ng-click="main.loadMap('Satellite')"-->
+<!--btn-checkbox ng-model="main.satelliteBase">{{ 'map.SATELLITE' | translate }}-->
+<!--</button>-->
+<!--<button type="button" class="btn btn-default map-menu-button-b" ng-click="main.loadMap('Streets')" btn-checkbox-->
+<!--ng-model="main.streetBase">{{ 'map.TERRAIN' | translate }}-->
+<!--</button>-->
+
+<div class="map-menu btn-group">
+  <label class="btn btn-default map-menu-button-b" ng-model="main.mapMode" btn-radio="'plain'">
+    {{ 'map.MAP' | translate }}</label>
+  <label class="btn btn-default map-menu-button-b" ng-model="main.mapMode" btn-radio="'satellite'">
+    {{ 'map.SATELLITE' | translate }}</label>
+  <label class="btn btn-default map-menu-button-b" ng-model="main.mapMode" btn-radio="'streets'">
+    {{ 'map.TERRAIN' | translate }}</label>
+</div>
+
+<!--</div>-->
+<div class="tools-menu btn-group">
+  <a id="updatePasswordBtn"
+     ng-show="user.auth_type == 'password'"
+     class="btn" ns-popover ns-popover-template="popoverPassword" ns-popover-trigger="click"
+     ns-popover-theme="ns-popover-tooltip-theme" ns-popover-placement="top|right" ns-popover>
+    <span class="glyphicon glyphicon-lock tools-menu-button"></span></a>
+  <a id='userSettingsBtn' class="btn" ns-popover ns-popover-template="popoverSettings" ns-popover-trigger="click"
+     ns-popover-theme="ns-popover-tooltip-theme" ns-popover-placement="top|right" ns-popover><span
+    class="glyphicon glyphicon-cog tools-menu-button"></span></a>
+  <a class="btn" ns-popover ns-popover-template="popoverLogout" ns-popover-trigger="click"
+     ns-popover-theme="ns-popover-tooltip-theme" ns-popover-placement="top|right" ns-popover><span
+    class="glyphicon glyphicon-off tools-menu-button"></span></a>
+</div>
+
+<div class="device-list-panel" ng-mouseenter="disableMap();" ng-mouseleave="enableMap();">
+  <div class="device-panel-header" ng-show="!main.curDevice">
+    <div class="a-device-panel-header">{{ 'map.DEVICES' | translate }}
+      <i class="pull-right glyphicon collapse-chevrons" style="cursor: pointer;" ng-click="main.isCollapsed = !main.isCollapsed"
+         ng-class="{'glyphicon-chevron-down': main.isCollapsed, 'glyphicon-chevron-up': !main.isCollapsed}"></i>
+    </div>
+  </div>
+
+  <div collapse="main.isCollapsed" class="device-list" ng-show="!main.curDevice">
+
+    <div class="devices-wrapper">
+      <div class="panel device-panel" ng-repeat="d in main.devices | orderBy: 'name' ">
+        <div>
+          <table style="width: 100%;">
+            <tr>
+              <td class="text-left"><a href ng-click="main.selectDevice(d)" class="name">{{d.name}}</a></td>
+              <td class="text-right">{{d.sample.speed}}km</td>
+            </tr>
+            <tr>
+              <td class="text-left"><a href class="address" ng-click="main.moveMapCenterToDevice(d)">{{d.place}}</a></td>
+              <td class="text-right">
+<!--                <i class="fa fa-space-shuttle" style="	-webkit-transform: rotate({{ d.sample.heading }}deg);
+                      -moz-transform: rotate({{ d.sample.heading }}deg);
+                      -ms-transform: rotate({{ d.sample.heading }}deg);
+                      -o-transform: rotate({{ d.sample.heading }}deg);
+                      transform: rotate({{ d.sample.heading }}deg);">
+                </i> -->
+              </td>
+            </tr>
+            <!--
+            <tr>
+              <td class="text-left">
+                <i class="fa fa-battery-three-quarters">{{d.sample.battery | number:2}}</i>
+              </td>
+              <td class="text-right">{{d.sample.power}}</td>
+            </tr>
+            -->
+          </table>
+
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="panel last-panel text-center">
+      <div class="add-new" ng-click="main.showNewDeviceDlg()"><a href> <i class="fa fa-plus"> <span class="vehicle-font">Add new device</span> </i></a>
+      </div>
+    </div>
+    <!-- <ul >
+        <li class="panel device-panel" style="width:240px;padding-left: -40px" ng-repeat="d in devices.devices">{{d.name}}</li>
+    </ul> -->
+  </div>
+
+
+  <div class="device-panel-header" ng-show="main.curDevice">
+    <div class="a-device-panel-header"> {{ main.curDevice.name }}
+      <i style="cursor: pointer;" class="pull-right glyphicon collapse-chevrons" ng-click="main.isDetailFrmCollapsed = !main.isDetailFrmCollapsed"
+         ng-class="{'glyphicon-chevron-down': main.isDetailFrmCollapsed, 'glyphicon-chevron-up': !main.isDetailFrmCollapsed}"></i>
+    </div>
+  </div>
+
+  <!-- Device Detail Section / Can Edit As well-->
+  <div collapse="main.isDetailFrmCollapsed" class="device-list" ng-show="main.curDevice">
+    <div style="overflow: auto;">
+      <a href ng-click="main.startDeviceEditing(main.curDevice)" class="pull-right"
+         ng-show="!main.curDevice.isEditing">Edit</a>
+      <a href ng-click="main.updateDevice(main.curDevice)" class="pull-right"
+         ng-show="main.curDevice.isEditing">Save</a>
+      <a href ng-click="main.selectDevice(null)" ng-show="!main.curDevice.isEditing" class="pull-right" style="margin-right: 10px;">Back</a>
+      <a href ng-click="main.curDevice.isEditing = !main.curDevice.isEditing" ng-show="main.curDevice.isEditing" class="pull-right" style="margin-right: 10px;">Cancel</a>
+    </div>
+
+
+    <div class="device-detail">
+      <div class="field">
+        <table border="0" cellspaccing="0" cellpadding="0" width="100%">
+          <tr>
+            <td width="30px" style="padding-right: 5px;">Power: </td>
+            <td width="75px">{{ main.curDevice.sample.power | number:2 }}V</td>
+
+            <td width="30px" style="padding-right: 5px;">Battery: </td>
+            <td width="75px"><i class="fa fa-battery-full fa-1x" style="color: green;"></i></td>
+          </tr>
+        </table>
+      </div>
+      <div class="field">
+        <table border="0" cellspaceing="0" cellpadding="0" width="100%" class="detail-table">
+          <tr>
+            <td>Device:</td>
+            <td>{{main.getVendor(main.curDevice.vendor).name}} {{main.getModel(main.curDevice.vendor, main.curDevice.model).name}}</td>
+          </tr>
+          <tr>
+            <td>IMEI:</td>
+            <td>{{main.curDevice.imei}}</td>
+          </tr>
+          <tr >
+            <td>Name:</td>
+            <td>
+              <input type="text" class="form-control" ng-model="main.curDevice.name"
+               ng-show="main.curDevice.isEditing">
+              <span ng-show="!main.curDevice.isEditing">{{ main.curDevice.name }}</span>
+            </td>
+          </tr>
+          <tr>
+            <td>Phone:</td>
+            <td>
+              <input type="text" class="form-control" ng-model="main.curDevice.phone"
+               ng-show="main.curDevice.isEditing">
+              <span ng-show="!main.curDevice.isEditing">{{ main.curDevice.phone }}</span>
+            </td>
+          </tr>
+          <tr>
+            <td>APN:</td>
+            <td>
+              <input type="text" class="form-control" ng-model="main.curDevice.apn"
+               ng-show="main.curDevice.isEditing">
+              <span ng-show="!main.curDevice.isEditing">{{ main.curDevice.apn }}</span>
+            </td>
+          </tr>
+          <tr>
+            <td>APN Username:</td>
+            <td>
+              <input type="text" class="form-control" ng-model="main.curDevice.gprs_username"
+               ng-show="main.curDevice.isEditing">
+              <span ng-show="!main.curDevice.isEditing">{{ main.curDevice.gprs_username }}</span>
+            </td>
+          </tr>
+          <tr>
+            <td>APN Password:</td>
+            <td>
+              <input type="text" class="form-control" ng-model="main.curDevice.gprs_password"
+               ng-show="main.curDevice.isEditing">
+              <span ng-show="!main.curDevice.isEditing">{{ main.curDevice.gprs_password }}</span>
+            </td>
+          </tr>
+          <tr>
+            <td>Marker Color:</td>
+            <td>
+              <select ng-model="main.curDevice.marker_color" ng-show="main.curDevice.isEditing" class="form-control">
+                <option value="yellow">Yellow</option>
+                <option value="green">Green</option>
+                <option value="red">Red</option>
+                <option value="silver">Silver</option>
+                <option value="grey">Grey</option>
+              </select>
+              <span ng-show="!main.curDevice.isEditing">{{ main.curDevice.marker_color }}</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+ </div>
+
+</div>
+
+
+<script id="popoverPassword" type="text/ng-template">
+  <form name="form" style="width: 220px;" ng-controller="PasswordCtrl as ctrlr" validated-form
+        ng-submit="form.$valid && ctrlr.update()">
+    <div class="modal-header">
+      <div class="modal-title">
+        <span class="glyphicon glyphicon-lock"></span>Change Password
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="form-group {{form.current.$valid ? '' :'has-error'}}">
+        <input type="password" name="current" password placeholder="Current Password" ng-model="ctrlr.current"
+               class="form-control" required tooltip-html-unsafe="{{tooltips.current}}"/>
+      </div>
+      <div class="form-group {{form.new1.$valid ? '' :'has-error'}}">
+        <input type="password" name="new1" password placeholder="New Password" ng-model="ctrlr.new1"
+               class="form-control"
+               required tooltip-html-unsafe="{{tooltips.current}}"/>
+      </div>
+      <div class="form-group {{form.new2.$valid ? '' :'has-error'}}">
+        <input type="password" name="new2" password placeholder="Confirm New Password" ng-model="ctrlr.new2"
+               class="form-control" required tooltip-html-unsafe="{{tooltips.current}}"
+               password-verify="{{ctrlr.new1}}"/>
+      </div>
+      <span ng-show="(form.new2.$error.passwordVerify)">Passwords don't match</span>
+    </div>
+    <div class="modal-footer">
+      <input type="submit" class="btn btn-primary" ng-disabled="form.$invalid || !form.$dirty"
+             style="width: 100px; margin-left: 25px;" value="UPDATE">
+    </div>
+    <i class="triangle-right"></i>
+  </form>
+</script>
+
+<script id="popoverSettings" type="text/ng-template">
+  <form name="form" style="width: 350px;" ng-controller="SettingsCtrl as settings" validated-form
+        ng-submit="form.$valid && settings.update()">
+    <div class="modal-header">
+      <div class="modal-title">
+        <span class="glyphicon glyphicon-cog"></span>{{'map.SETTINGS' | translate  }}
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="form-group {{form.firstName.$valid ? '' :'has-error'}}">
+        <input name="firstName" class="form-control" type="text" placeholder="First Name"
+               ng-model="pending.first_name" minlength="0" required/>
+      </div>
+      <div class="form-group {{form.lastName.$valid ? '' :'has-error'}}">
+        <input name="lastName" class="form-control" type="text" placeholder="Last Name"
+               ng-model="pending.last_name" minlength="0" required/>
+      </div>
+      <div class="form-group {{form.country.$valid ? '' :'has-error'}}">
+        <country ng-model="pending.country_name" country-id="pending.country_id" name="country"
+                 country="pending.country"></country>
+      </div>
+      <div class="form-group {{form.email.$valid ? '' :'has-error'}}">
+        <input ng-show="emailEditable" name="email" class="form-control" type="email" placeholder="Email"
+               ng-model="pending.email" minlength="0" required/>
+
+        <span ng-show="!emailEditable" style="padding-left: 12px">{{pending.email}}</span>
+      </div>
+            <span class="bg-danger" ng-show="settings.errorText">
+                {{settings.errorText}}
+            </span>
+    </div>
+    <div class="modal-footer">
+      <input type="submit" class="btn btn-primary" ng-disabled="form.$invalid || !form.$dirty"
+             style="width: 100px; margin-left: 25px;" value="UPDATE">
+    </div>
+    <i class="triangle-right"></i>
+  </form>
+</script>
+
+<script id="popoverLogout" type="text/ng-template">
+  <div style="width: 200px;">
+    <div class="modal-header">
+      <div class="modal-title">
+        <span class="glyphicon glyphicon-off"></span>Logout
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-default" ng-click="hidePopover()">Cancel</button>
+      <button class="btn btn-primary btn-ok"  ng-click="main.logout()">Ok</button>
+    </div>
+    <i class="triangle-right"></i>
+  </div>
+</script>
+

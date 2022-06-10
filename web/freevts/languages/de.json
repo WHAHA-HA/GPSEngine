@@ -1,0 +1,21 @@
+{
+  "OK": "OK",
+  "CANCEL": "Stornieren",
+  "LOGOUT": "AUSLOGGEN",
+  "ENTER": "EINGEBEN",
+  "MAPS": "Landkarten",
+  "MAPS_SATELLITE": "Satellit",
+  "MAPS_TERRAIN": "Terrain",
+  "DEVICES": "VORRICHTUNGEN",
+  "DEVICES_ADD": "Neues Gerät hinzufügen",
+  "DEVICES_MODAL_TITLE": "Neues Gerät",
+  "DEVICES_MODAL_NAME": "Gerätename",
+  "DEVICES_MODAL_MAKE": "Gerätes Tätigen",
+  "DEVICES_MODAL_MAKE_PLACEHOLDER": "Wählen Sie Ihr Gerät",
+  "DEVICES_MODAL_MODEL": "Gerätemodell",
+  "DEVICES_MODAL_MODEL_PLACEHOLDER": "Wähle Deine Gerätemodell",
+  "CHANGE_PASSWORD_MODAL_TITLE": "KENNWORT ÄNDERN",
+  "CHANGE_PASSWORD_MODAL_PASSWORD_PLACEHOLDER": "Aktuelles Passwort",
+  "CHANGE_PASSWORD_MODAL_PASSWORD_NEW_PLACEHOLDER": "Neues Passwort",
+  "CHANGE_PASSWORD_MODAL_PASSWORD_CONFIRM_PLACEHOLDER": "Neues Passwort Bestätigen"
+}

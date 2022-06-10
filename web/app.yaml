@@ -1,0 +1,42 @@
+application: freevtsdev
+version: beta
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /freevts/index.html
+  script: main.app
+
+- url: /freevts
+  static_dir: freevts
+  application_readable: true
+
+- url: /.*
+  script: main.app
+
+libraries:
+- name: pycrypto
+  version: latest
+- name: webapp2
+  version: "2.5.2"
+
+
+builtins:
+- appstats: on
+
+skip_files:
+- ^(.*/)?#.*#$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.py[co]$
+- ^.*/lib/.*\.txt$
+- ^(.*/)?\..*$
+- ^requirements\.txt$
+- ^install_requirements\.*$
+- ^freevts/node_modules/.*$
+- ^freevts/.sass-cache/.*$
+- ^freevts/bower_components/.*$
+- ^freevts/javascripts/.*$
+- ^freevts/libs/.*$
+- ^freevts/css/.*$
+

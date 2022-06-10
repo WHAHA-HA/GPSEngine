@@ -1,0 +1,43 @@
+<header id="header" class="show-on-scroll" data-offset-el=".index-section" data-offset-behavior="bottom" role="banner">
+	<div class="header-inner">
+		<div id="logoWrapper" class="wrapper" data-content-field="site-title">
+			<h1 id="logoImage">
+				<a href="/"><img src="//static1.squarespace.com/static/54b3366ce4b03666437716b3/t/55350ae3e4b0a9c1b1eecd9b/1429539555711/?format=1500w" alt="Free Vehicle Tracking" /></a>
+			</h1>
+		</div>
+	</div>
+	</div>
+</header>
+<div class="container" style="width:300px">
+	<div class="well" style="border-radius: 0px;background-color: rgb(217,217,216);padding-bottom:60px;">
+		<form name="myForm">
+			<div class="control-group">
+				<label class="control-label" for="inputPassword">Password</label>
+				<div class="controls">
+					<input ng-model="user.password" ng-class="{'ng-invalid':myForm.confirmPassword.$error.match}" password-validate="" required=""
+					type="password" id="password" placeholder="Password" style="width: 100%;"/>
+				</div>
+			</div>
+			<br />
+			<div class="control-group">
+				<label class="control-label" for="inputConfimPassword">Confirm Password</label>
+				<div class="controls">
+					<input ng-model="user.passwordConfirm" ng-class="{'ng-invalid':myForm.confirmPassword.$error.match}" type="password" data-match="user.password"
+					name="confirmPassword" placeholder="Confirm Password" style="width: 100%;"/>
+				</div>
+			</div>
+			<div ng-show="myForm.confirmPassword.$error.match">Passwords do not match!</div>
+			<div ng-show="myForm.confirmPassword.$error.pwd">Password strength!</div>
+			<div ng-show="myForm.confirmPassword.$error.complex">Password complexity!</div>
+			<br/>
+			
+			<div class="control-group">
+			<label class="control-label"></label>
+				<div class="controls">
+					<button type="submit" class="btn btn-success" style="float: right" ng-click="confirmAccount()">Confirm</button>
+				</div>
+			</div>
+			
+		</form>
+	</div>
+</div>

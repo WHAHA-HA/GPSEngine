@@ -1,0 +1,86 @@
+<header id="header" class="show-on-scroll" data-offset-el=".index-section" data-offset-behavior="bottom" role="banner">
+	<div class="header-inner">
+		<div id="logoWrapper" class="wrapper" data-content-field="site-title">
+			<h1 id="logoImage">
+				<a href="/"><img src="//static1.squarespace.com/static/54b3366ce4b03666437716b3/t/55350ae3e4b0a9c1b1eecd9b/1429539555711/?format=1500w" alt="Free Vehicle Tracking" /></a>
+			</h1>
+		</div>
+	</div>
+	</div>
+</header>
+<div class="container" style="width:350px">
+	<div class="well" style="border-radius: 0px;background-color: rgb(217,217,216);padding-bottom:60px;">
+	<form id="signup" class="form-horizontal" ng-hide="hideForm">
+		<legend>Sign Up</legend>
+		<div class="control-group">
+			<label class="control-label">First Name</label>
+			<div class="controls">
+				<div class="input-prepend">
+					<span class="add-on">
+						<i class="icon-user"></i>
+					</span>
+					<input type="text" class="input-xlarge" id="fname" name="fname" placeholder="First Name" style="width: 100%;" ng-model="newuser.first_name">
+				</div>
+			</div>
+		</div>
+		<div class="control-group ">
+			<label class="control-label">Last Name</label>
+			<div class="controls">
+				<div class="input-prepend">
+					<span class="add-on">
+						<i class="icon-user"></i>
+					</span>
+					<input type="text" class="input-xlarge" id="lname" name="lname" placeholder="Last Name" style="width: 100%;" ng-model="newuser.last_name">
+				</div>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">Email</label>
+			<div class="controls">
+				<div class="input-prepend">
+					<span class="add-on">
+						<i class="icon-envelope"></i>
+					</span>
+					<input type="text" class="input-xlarge" id="email" name="email" placeholder="Email" style="width: 100%;" ng-model="newuser.email">
+				</div>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">Country</label>
+			<div class="controls">
+				<div class="input-prepend">
+					<select id="countryNameSelect" ng-model="country_sort" style="width: 100%;">
+						<option value="">Select Country...</option>
+					    <option ng-repeat="obj in countries" value="{{obj.Sort}}">{{obj.Name}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label"></label>
+			<div class="controls">
+				<button type="submit" class="btn btn-success" style="float: right" ng-click="createAccount()">Create My Account</button>
+			</div>
+		</div>
+	</form>
+	<div ng-show="showSuccess" style="text-align: center">
+		<label class="control-label">Your account has been created</label>
+		<label class="control-label">You'll receive an email with</label>
+		<label class="control-label">more details shortly</label>
+		<div class="controls">
+			<button type="submit" class="btn btn-success" style="float: right" ng-click="finish()">Finish</button>
+		</div>
+	</div>
+	<div ng-show="showError">
+		<label class="control-label">Something has gone wrong</label></br>
+		<label class="control-label">Please retry</label>
+		<div class="controls">
+				<button type="submit" class="btn btn-success" style="float: right" ng-click="retry()">Retry</button>
+		</div>
+	</div>
+	</div>
+		
+		
+	</div>
+	</div>
+</div>

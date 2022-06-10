@@ -1,0 +1,105 @@
+<div class="col sqs-col-12">
+    <div class="form-block">
+        <div class="form-wrapper">
+            <div class="form-inner-wrapper">
+                <form id="login">
+                    <div class="field-list clear">
+                        <div class="form-item field">
+                            <label class="title">Email</label>
+                            <input name="email" type="email" class="field-element field-control" required>
+                        </div>
+                        <div class="form-item field">
+                            <label class="title">Password</label>
+                            <input name="password" type="password" class="field-element field-control" required>
+                        </div>
+                        <div class="form-button-wrapper">
+                            <input type="submit" value="Login">
+                        </div>
+                        <div class="form-item field message-container">
+                            <span id="login_message"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="clear:both"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+    $(function(){
+        var BACKEND_URL = "https://fvt-dev.appspot.com/";
+
+        function redirectToApp(response){
+//            var url = "https://freevtsdev.appspot.com/signin?token={token}&redirect=freevts/signin_example.html";
+//            url = url.replace('{token}', response.token);
+            var url = "https://freevtsdev.appspot.com/freevts/index.html";
+            window.location.replace(url)
+        }
+
+        function showMessage(msg){
+            $('#login_message').html(msg);
+        }
+
+        function showErrors(result){
+            var message = '';
+            if (result.detail && !result.msg){
+                message = 'Please fix the following errors:<br>';
+                for (var parameter in result.detail) {
+                    var field = getFieldName(parameter);
+                    var error = getFieldErrorMsg(result.detail[parameter]);
+                    message += (field + ': ' + error + '<br>');
+                }
+            } else {
+                message = 'Please fix the following error:<br>';
+                message += getErrorMsg(result);
+            }
+            showMessage(message);
+        }
+
+        function getErrorMsg(data){
+            return data.msg;
+        }
+
+        function getFieldErrorMsg(fieldError){
+            return fieldError;
+        }
+
+        function getFieldName(parameter){
+            return parameter;
+        }
+
+        $('#login').on('submit', function(event){
+            event.preventDefault();
+            showMessage("Logging in...");
+            var data = {
+                email: $('input[name=email]').val(),
+                password: $('input[name=password]').val()
+            };
+            $.ajax({
+                url: BACKEND_URL + 'login',
+                data: JSON.stringify(data),
+                method: 'POST',
+                contentType: 'application/json; charset=UTF-8',
+                xhrFields: {
+                    withCredentials: true
+                }
+            }).done(function(data, textStatus, jqXHR){
+                if (data.success){
+                    redirectToApp(data);
+                } else {
+                    showErrors(data);
+                }
+            }).fail(function(jqXHR, textStatus, errorThrown){
+                showMessage("Request failed");
+            });
+        });
+    });
+
+</script>
+<style>
+    .form-item.field.message-container {
+        margin-top: 20px;
+    }
+</style>

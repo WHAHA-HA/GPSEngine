@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="freevts">
+
+<head>
+    <meta charset=utf-8/>
+    <title>FreeVTS</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no'/>
+    ${newRelic}
+
+    <!-- JS libraries -->
+    <!--
+      lib.js file contains the all the js files under libs folder
+     -->
+    <script charset="utf-8" src="public/js/library.js"></script>
+
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.2.21/jquery.autocomplete.min.js"></script>
+
+    <!--
+      Application.js file contains the all the js files under modules folder
+     -->
+    <script charset="utf-8" src="public/js/application.js"></script>
+
+    <!--
+    Library.css file contains all the scss files under moduels folder
+   -->
+    <link rel="stylesheet" href="public/stylesheets/library.css"/>
+
+    <!--
+      Application.css file contains all css files which are compiled from scss files under moduels folder
+     -->
+    <link rel="stylesheet" href="public/stylesheets/application.css"/>
+
+
+    <!-- External Libs -->
+    <script src="https://login.persona.org/include.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+</head>
+
+<body>
+<!-- UI-Router View -->
+<div ui-view>{{'Loading...' | translate}}</div>
+
+</body>
+
+</html>
+

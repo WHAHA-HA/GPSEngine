@@ -1,0 +1,29 @@
+{
+  "OK": "OK",
+  "CANCEL": "Cancel",
+  "LOGOUT": "LOGOUT",
+  "ENTER": "ENTER",
+  "MAPS": "Maps",
+  "MAPS_SATELLITE": "Satellite",
+  "MAPS_TERRAIN": "Terrain",
+  "DEVICES_ADD": "Add new device",
+  "DEVICES_MODAL_TITLE": "New Device",
+  "DEVICES_MODAL_NAME": "Device Name",
+  "DEVICES_MODAL_MAKE": "Device Make",
+  "DEVICES_MODAL_MAKE_PLACEHOLDER": "Select your device make",
+  "DEVICES_MODAL_MODEL": "Device Model",
+  "DEVICES_MODAL_MODEL_PLACEHOLDER": "Select your device model",
+  "CHANGE_PASSWORD_MODAL_TITLE": "CHANGE PASSWORD",
+  "CHANGE_PASSWORD_MODAL_PASSWORD_PLACEHOLDER": "Current Password",
+  "CHANGE_PASSWORD_MODAL_PASSWORD_NEW_PLACEHOLDER": "New Password",
+  "CHANGE_PASSWORD_MODAL_PASSWORD_CONFIRM_PLACEHOLDER": "Confirm New Password",
+  "map": {
+    "STREETS": "Streets",
+    "SATELLITE": "Satellite",
+    "TERRAIN": "Terrain",
+    "DEVICES": "Devices",
+    "SETTINGS": "Settings",
+    "MAP": "Map",
+    "Edit": "Edit"
+  }
+}

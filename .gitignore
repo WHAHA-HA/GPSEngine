@@ -1,0 +1,17 @@
+#bower components
+web/freevts/bower_components/
+
+#Project IDE settings
+.settings/
+.idea/
+
+#Grunt Files
+web/freevts/public/stylesheets/*.css
+web/freevts/public/stylesheets/*.map
+web/freevts/public/js/
+web/freevts/.sass-cache
+
+#node modules
+web/freevts/node_modules/
+
+*.pyc

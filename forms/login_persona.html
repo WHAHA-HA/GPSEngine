@@ -1,0 +1,104 @@
+<div class="col sqs-col-12">
+    <div class="form-block">
+        <div class="form-wrapper">
+            <div class="form-inner-wrapper">
+                <form id="login-persona">
+                    <div class="field-list clear">
+                        <div class="form-button-wrapper">
+                            <input type="submit" value="Login" style="height: 42px">
+                        </div>
+                        <div class="form-item field message-container">
+                            <span id="persona-message"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://login.persona.org/include.js"></script>
+<script>
+    $(function () {
+        var BACKEND_URL = "https://fvt-dev.appspot.com/";
+
+        function showMessage(msg) {
+            $('#persona-message').html(msg);
+        }
+
+        function showErrors(result) {
+            var message = '';
+            if (result.detail && !result.msg) {
+                message = 'Please fix the following errors:<br>';
+                for (var parameter in result.detail) {
+                    var field = getFieldName(parameter);
+                    var error = getFieldErrorMsg(result.detail[parameter]);
+                    message += (field + ': ' + error + '<br>');
+                }
+            } else {
+                message = 'Please fix the following error:<br>';
+                message += getErrorMsg(result);
+            }
+            showMessage(message);
+        }
+
+        function getErrorMsg(data) {
+            return data.msg;
+        }
+
+        function getFieldErrorMsg(fieldError) {
+            return fieldError;
+        }
+
+        function getFieldName(parameter) {
+            return parameter;
+        }
+
+        function verifyAssertion(assertion) {
+            console.log("verifyAssertion() called", arguments);
+            $.ajax({
+                url: BACKEND_URL + 'persona/login',
+                data: JSON.stringify({assertion: assertion}),
+                method: 'POST',
+                xhrFields: {
+                    withCredentials: true
+                },
+                contentType: 'application/json; charset=UTF-8'
+            }).done(function (data, textStatus, jqXHR) {
+                console.log(data);
+                if (data.success) {
+                    var url = 'https://freevtsdev.appspot.com/freevts/index.html';
+                    window.location.replace(url)
+                }
+                else {
+                    showErrors(data);
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Request failed", arguments);
+                showMessage("Unable to process request. Please try again.");
+            });
+        }
+
+        navigator.id.logout();
+
+        navigator.id.watch({
+            loggedInUser: null,
+            onlogin: function (assertion) {
+                verifyAssertion(assertion);
+            },
+            onlogout: function () {
+            }
+        });
+
+        $('#login-persona').on('submit', function (event) {
+            event.preventDefault();
+            showMessage("Please follow instructions in the popup");
+            navigator.id.request({siteName: 'Free Vehicle Tracking'});
+        });
+    });
+</script>
+<style>
+    .form-item.field.message-container {
+        margin-top: 20px;
+    }
+</style>

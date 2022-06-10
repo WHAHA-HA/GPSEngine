@@ -1,0 +1,20 @@
+{
+  "OK": "OK",
+  "CANCEL": "Отменить",
+  "LOGOUT": "ВЫЙТИ",
+  "ENTER": "ВВЕСТИ",
+  "MAPS": "Карты",
+  "MAPS_SATELLITE": "Спутник",
+  "MAPS_TERRAIN": "Рельеф",
+  "DEVICES_ADD": "Добавить новое устройство",
+  "DEVICES_MODAL_TITLE": "Новое устройство",
+  "DEVICES_MODAL_NAME": "Название устройства",
+  "DEVICES_MODAL_MAKE": "Марка устройства",
+  "DEVICES_MODAL_MAKE_PLACEHOLDER": "Выберите марку устройства",
+  "DEVICES_MODAL_MODEL": "Модель устройства",
+  "DEVICES_MODAL_MODEL_PLACEHOLDER": "Выберите модель устройства",
+  "CHANGE_PASSWORD_MODAL_TITLE": "СМЕНИТЬ ПАРОЛЬ",
+  "CHANGE_PASSWORD_MODAL_PASSWORD_PLACEHOLDER": "Текущий пароль",
+  "CHANGE_PASSWORD_MODAL_PASSWORD_NEW_PLACEHOLDER": "Новый пароль",
+  "CHANGE_PASSWORD_MODAL_PASSWORD_CONFIRM_PLACEHOLDER": "Подтвердить новый пароль"
+}

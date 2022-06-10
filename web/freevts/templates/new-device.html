@@ -1,0 +1,66 @@
+<div class="modal-header">
+  <div class="modal-title">New Device</div>
+</div>
+<div class="modal-body device-add-modal">
+  <table border="0" cellspaccing="0" cellpadding="0" width="100%" class="device-form">
+    <tr>
+      <td>
+        <span class="pad-right">Device Name</span>
+      </td>
+      <td>
+        <input type="text" class="form-control" placeholder="Give your device a name" ng-model="device.name">
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <span class="pad-right">Device Make</span>
+      </td>
+      <td>
+        <select class="form-control" ng-model="device.vendor" ng-options="n.name for n in vendors">
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <span class="pad-right">Phone</span>
+      </td>
+      <td>
+        <input type="text" class="form-control" placeholder="Phone number for SIM card" ng-model="device.phone">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pad-right">APN</span>
+      </td>
+      <td>
+        <input type="text" class="form-control" placeholder="Access Point Name for SIM card" ng-model="device.apn">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pad-right">Marker Color</span>
+      </td>
+      <td>
+         <select ng-model="device.marker_color" class="form-control"
+           placeholder="Mark Color">
+            <option value="yellow">Yellow</option>
+            <option value="green">Green</option>
+            <option value="red">Red</option>
+            <option value="silver">Silver</option>
+            <option value="grey">Grey</option>
+          </select>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <label style="font-weight: normal;"><input type="checkbox" ng-model="confirmTerms" style="margin-right: 5px;">I understand that there may be costs involved when adding a device, and I agree to the terms and conditions</label>
+      </td>
+    </tr>
+  </table>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+  <button class="btn btn-primary btn-ok" ng-click="ok()" ng-disabled="confirmTerms != true" >OK</button>
+</div>
